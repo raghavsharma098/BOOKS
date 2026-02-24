@@ -1,0 +1,13 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "JSXAttribute[name.name='style']",
+        "message": "Inline `style=` is banned — use Tailwind utility classes, CSS modules, or className instead."
+      }
+    ]
+  }
+}
