@@ -73,7 +73,7 @@ export default function Navbar() {
       {/* Main Navbar */}
       <header 
         ref={navRef}
-        className="w-full bg-[#F2F0E4] border-b border-[#60351B]/10 sticky top-0 z-40 transition-all duration-300"
+        className="w-full border-b border-[#60351B]/10 sticky top-0 z-40 transition-all duration-300"
       >
         <div className="w-full px-6 sm:px-4 md:px-12 lg:px-16">
           <div className="flex items-center justify-between h-16 sm:h-18 md:h-20">

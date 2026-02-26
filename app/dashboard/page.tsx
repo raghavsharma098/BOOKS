@@ -116,9 +116,9 @@ function BookCard({ book, index, fallbackCover }: { book: any; index: number; fa
 
   return (
     <div className="flex-shrink-0 w-24 xs:w-28 sm:w-32 md:w-[135px] flex flex-col items-center">
-      <div className="w-full aspect-[135/197] rounded-l-md rounded-r-sm overflow-hidden bg-neutral-200 shadow-[4px_6px_16px_rgba(0,0,0,0.28)]">
+      <div className="w-full aspect-[135/197] rounded-l-md rounded-r-sm overflow-hidden bg-neutral-200 shadow-[-10px_10px_4px_rgba(0,0,0,0.28)]">
         {typeof coverSrc === 'string' ? (
-          <img src={coverSrc} alt={title} className="w-full h-full object-cover" />
+          <img src={coverSrc} alt={title} className="w-full h-full object-cover rounded-l-md" />
         ) : (
           <Image src={coverSrc} alt={title} className="w-full h-full object-cover" />
         )}
@@ -304,7 +304,7 @@ function AuthorCard({ author }: { author: any }) {
         {isVerified && (
           <span className="absolute -bottom-0.5 -right-0.5 flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#60351B] border-2 border-white" title="Verified Author">
             <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" viewBox="0 0 12 12" fill="currentColor">
-              <path d="M10.28 2.28L5 7.56 2.72 5.28a1 1 0 00-1.44 1.44l3 3a1 1 0 001.44 0l6-6a1 1 0 00-1.44-1.44z"/>
+              <path d="M10.28 2.28L5 7.56 2.72 5.28a1 1 0 00-1.44 1.44l3 3a1 1 0 001.44 0l6-6a1 1 0 00-1.44-1.44z" />
             </svg>
           </span>
         )}
@@ -331,11 +331,21 @@ function BookClubCard({ club, backgroundImage, isMember }: { club: any; backgrou
   })();
 
   return (
-    <div className="relative w-full h-32 sm:h-36 md:h-[150px] rounded-[22px] overflow-hidden">
+    <div className="relative w-full h-32  border-amber-900 border-[2px] bg-[#60351B4A] bg-gradient-to-t from-[#442a1a] to-[#e4ab89] sm:h-36 md:h-[150px] rounded-[22px] overflow-hidden ">
       {club?.coverImage ? (
-        <img src={getImageUrl(club.coverImage)} alt={name} className="absolute inset-0 w-full h-full object-cover scale-[1.02]" />
+        <img
+          src={getImageUrl(club.coverImage)}
+          alt={name}
+          className="absolute inset-0 w-full h-full object-cover scale-[1.02]"
+          style={{ opacity: 0.7 }}
+        />
       ) : (
-        <Image src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover scale-[1.02]" />
+        <Image
+          src={backgroundImage}
+          alt=""
+          className="absolute inset-0 w-full h-full  object-cover scale-[1.02]"
+          style={{ opacity: 0.7 }}
+        />
       )}
       <div className="relative z-10 p-3 sm:p-4 h-full flex flex-col">
         <h3 className="text-sm sm:text-base md:text-lg font-medium text-[#210C00]">{name}</h3>
@@ -357,13 +367,12 @@ function PollBar({ rank, option, votes, percentage, isVoted, isVoting, onClick }
     <button
       onClick={onClick}
       disabled={isVoted || isVoting}
-      className={`relative w-full h-8 sm:h-9 rounded-lg overflow-hidden border transition-all ${
-        isVoted
+      className={`relative w-full h-8 sm:h-9 rounded-lg overflow-hidden border transition-all ${isVoted
           ? 'border-amber-400 ring-2 ring-amber-400/50 cursor-default'
           : onClick
-          ? 'border-[#60351B] hover:border-white/60 hover:scale-[1.01] cursor-pointer active:scale-[0.99]'
-          : 'border-[#60351B]'
-      } bg-white/10`}
+            ? 'border-[#60351B] hover:border-white/60 hover:scale-[1.01] cursor-pointer active:scale-[0.99]'
+            : 'border-[#60351B]'
+        } bg-white/10`}
     >
       <div className="absolute inset-y-0 left-0 bg-white/10 rounded-lg transition-all duration-500" style={{ width: `${percentage}%` }} />
       <div className="absolute inset-0 flex items-center justify-between px-3 sm:px-5">
@@ -389,7 +398,7 @@ export default function DashboardPage(): JSX.Element {
 
   // Dynamic content state
   const [content, setContent] = useState<DashboardContent>(defaultContent);
-  
+
   // Backend data state
   const [userData, setUserData] = useState<any>(null);
   const [popularBooks, setPopularBooks] = useState<any[]>([]);
@@ -648,7 +657,7 @@ export default function DashboardPage(): JSX.Element {
       <Sidebar activeIcon={activeIcon} setActiveIcon={setActiveIcon} />
 
       {/* Main Content Area */}
-      <div className="w-full lg:ml-24">
+      <div className="w-full lg:pl-16">
         {/* Loading State */}
         {loading && (
           <div className="flex items-center justify-center min-h-screen">
@@ -682,7 +691,7 @@ export default function DashboardPage(): JSX.Element {
             <div className="hidden sm:block sticky top-0 z-50 bg-[#F2F0E4] border-b border-[#210C00]/5 px-3 sm:px-4 lg:px-8 py-2 sm:py-3">
               <div className="max-w-7xl mx-auto w-full">
                 <div className="flex items-center justify-between gap-4 w-full">
-                  <div className="flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:-ml-10">
+                  <div className="flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:-pl-24">
                     <SearchBar
                       placeholder="Search Book by name, author"
                       onFilterOpenChange={setSearchFilterOpen}
@@ -717,24 +726,24 @@ export default function DashboardPage(): JSX.Element {
 
                   {/* Hero Image + Currently Reading Card */}
                   <div className="relative flex items-start gap-3 sm:gap-4 w-full sm:w-auto">
-                      {/* Currently Reading Card container */}
-                      <div className={`relative w-full sm:w-auto ${bookCardExpanded ? '' : ''}`} style={{minHeight: bookCardExpanded ? 'auto' : '12rem'}}>{/* reserve height */}
-                        {/* Currently Reading Card */}
-                        <div className={`bg-[#60351B33] rounded-lg p-3 sm:p-4 md:p-5 shadow-lg flex-1 min-w-0 transition-all duration-300 ${bookCardExpanded ? 'relative w-full sm:absolute sm:top-0 sm:right-0 z-20 sm:w-[320px] md:w-[360px] lg:w-[400px] xl:w-[450px]' : 'w-full sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[400px]'}`}>
-                      {/* inside-card cover image (only when collapsed) */}
-                      {!bookCardExpanded && currentBook?.book?.coverImage && (
-                        <div className="absolute left-3 top-3 sm:relative sm:left-auto sm:top-auto w-[70px] sm:w-[100px] lg:w-[120px] rounded-lg overflow-hidden shadow-xl"
-                             style={{ aspectRatio: '2/3' }}>
-                          <img
-                            src={getImageUrl(currentBook.book.coverImage)}
-                            alt={currentBook.book.title || 'Currently reading'}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-                      {!bookCardExpanded ? (
-                        /* Collapsed View */
-                        <div className="pl-[85px] sm:pl-[120px] lg:pl-[140px] -mt-0 sm:-mt-44">
+                    {/* Currently Reading Card container */}
+                    <div className={`relative w-full sm:w-auto ${bookCardExpanded ? '' : ''}`} style={{ minHeight: bookCardExpanded ? 'auto' : '12rem' }}>{/* reserve height */}
+                      {/* Currently Reading Card */}
+                      <div className={`bg-[#60351B33] rounded-lg p-3 sm:p-4 md:p-5 shadow-lg flex-1 min-w-0 transition-all duration-300 ${bookCardExpanded ? 'relative w-full sm:absolute sm:top-0 sm:right-0 z-20 sm:w-[320px] md:w-[360px] lg:w-[400px] xl:w-[450px]' : 'w-full sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[400px]'}`}>
+                        {/* inside-card cover image (only when collapsed) */}
+                        {!bookCardExpanded && currentBook?.book?.coverImage && (
+                          <div className="absolute left-3 top-3 sm:relative sm:left-auto sm:top-auto w-[70px] sm:w-[100px] lg:w-[120px] rounded-lg overflow-hidden shadow-xl"
+                            style={{ aspectRatio: '2/3' }}>
+                            <img
+                              src={getImageUrl(currentBook.book.coverImage)}
+                              alt={currentBook.book.title || 'Currently reading'}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        {!bookCardExpanded ? (
+                          /* Collapsed View */
+                          <div className="pl-[85px] sm:pl-[120px] lg:pl-[140px] -mt-0 sm:-mt-44">
                             <p className="text-[10px] sm:text-xs text-[#210C00]/60 text-right mb-1 sm:mb-2">~ {currentBook?.book?.author?.name || 'Author'}</p>
                             <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-medium text-[#210C00] leading-tight mb-2 sm:mb-3">
                               {currentBook?.book?.title || 'No book in progress'}
@@ -754,103 +763,103 @@ export default function DashboardPage(): JSX.Element {
                                 Continue Review
                               </button>
                             )}
-                        </div>
-                      ) : (
-                        /* Expanded View */
-                        <>
-                          {/* Close button */}
-                          <button
-                            onClick={() => setBookCardExpanded(false)}
-                            className="absolute top-2 right-2 w-8 h-8 sm:w-6 sm:h-6 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors z-10"
-                          >
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                              <path d="M18 6L6 18M6 6l12 12" stroke="#210C00" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
-                          </button>
-                          
-                          {/* Editor's Choice Tag */}
-                          <div className="flex justify-end mb-2 pr-8 sm:pr-0">
-                            <span className="px-3 py-1 bg-[#60351B] text-white text-[10px] sm:text-xs rounded-full"># Editor's Choice</span>
                           </div>
-                          
-                          <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
-                            {/* Book Cover */}
-                            <div className="w-[120px] sm:w-[120px] md:w-[140px] aspect-[3/4] rounded-lg overflow-hidden flex-shrink-0 shadow-md mx-auto sm:mx-0">
-                              {currentReading[0]?.book?.coverImage ? (
-                                <img src={getImageUrl(currentReading[0].book.coverImage)} alt="Book cover" className="w-full h-full object-cover" />
-                              ) : (
-                                <Image src={cover1} alt="Book cover" className="w-full h-full object-cover" />
-                              )}
+                        ) : (
+                          /* Expanded View */
+                          <>
+                            {/* Close button */}
+                            <button
+                              onClick={() => setBookCardExpanded(false)}
+                              className="absolute top-2 right-2 w-8 h-8 sm:w-6 sm:h-6 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors z-10"
+                            >
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 6L6 18M6 6l12 12" stroke="#210C00" strokeWidth="2" strokeLinecap="round" />
+                              </svg>
+                            </button>
+
+                            {/* Editor's Choice Tag */}
+                            <div className="flex justify-end mb-2 pr-8 sm:pr-0">
+                              <span className="px-3 py-1 bg-[#60351B] text-white text-[10px] sm:text-xs rounded-full"># Editor's Choice</span>
                             </div>
-                            
-                            {/* Book Details */}
-                            <div className="flex-1 min-w-0 text-center sm:text-left">
-                              <p className="text-[10px] sm:text-xs text-[#210C00]/60 mb-1">~ {currentBook?.book?.author?.name || 'Author'}</p>
-                              <h3 className="text-base sm:text-xl md:text-2xl font-medium text-[#210C00] leading-tight mb-2">
-                                {currentBook?.book?.title || 'No book in progress'}
-                              </h3>
-                              
-                              {/* Rating */}
-                              <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
-                                <div className="flex gap-0.5">
-                                  {Array.from({ length: 5 }).map((_, i) => (
-                                    <svg key={i} className={`w-3 h-3 sm:w-4 sm:h-4 ${i < Math.round(currentBook?.book?.averageRating || 0) ? 'text-[#E09D4A]' : 'text-[#E09D4A]/30'}`} viewBox="0 0 24 24" fill="currentColor">
-                                      <path d="M12 .587l3.668 7.431L23.4 9.75l-5.7 5.56L18.8 23 12 19.77 5.2 23l1.1-7.69L.6 9.75l7.732-1.732L12 .587z" />
-                                    </svg>
-                                  ))}
-                                </div>
-                                <span className="text-[9px] sm:text-xs text-[#210C00]/60">
-                                  {(currentBook?.book?.totalRatings || 0).toLocaleString()} ratings
-                                </span>
+
+                            <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+                              {/* Book Cover */}
+                              <div className="w-[120px] sm:w-[120px] md:w-[140px] aspect-[3/4] rounded-lg overflow-hidden flex-shrink-0 shadow-md mx-auto sm:mx-0">
+                                {currentReading[0]?.book?.coverImage ? (
+                                  <img src={getImageUrl(currentReading[0].book.coverImage)} alt="Book cover" className="w-full h-full object-cover" />
+                                ) : (
+                                  <Image src={cover1} alt="Book cover" className="w-full h-full object-cover" />
+                                )}
                               </div>
 
-                              <p className="text-[10px] sm:text-sm text-[#210C00]/70 mb-2 sm:mb-3">
-                                {currentBook?.book?.pageCount || '?'} pages
-                                {publishYear ? ` • first pub ${publishYear}` : ''}
-                              </p>
-                              
-                              <p className="text-[10px] sm:text-sm text-[#210C00]/80 leading-relaxed line-clamp-2 sm:line-clamp-3 mb-3 sm:mb-4">
-                                {currentBook?.book?.description?.substring(0, 200) || 'Add a book to your reading list to see details here.'}
-                              </p>
-                              
-                              <button
-                                onClick={() => router.push(`/view-detail?id=${currentBook?.book?._id || ''}`)}
-                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#60351B] text-white text-xs sm:text-sm font-medium hover:bg-[#4A2518] transition-colors w-full sm:w-auto"
-                              >
-                                View Detail
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                  <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                              </button>
+                              {/* Book Details */}
+                              <div className="flex-1 min-w-0 text-center sm:text-left">
+                                <p className="text-[10px] sm:text-xs text-[#210C00]/60 mb-1">~ {currentBook?.book?.author?.name || 'Author'}</p>
+                                <h3 className="text-base sm:text-xl md:text-2xl font-medium text-[#210C00] leading-tight mb-2">
+                                  {currentBook?.book?.title || 'No book in progress'}
+                                </h3>
+
+                                {/* Rating */}
+                                <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
+                                  <div className="flex gap-0.5">
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                      <svg key={i} className={`w-3 h-3 sm:w-4 sm:h-4 ${i < Math.round(currentBook?.book?.averageRating || 0) ? 'text-[#E09D4A]' : 'text-[#E09D4A]/30'}`} viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 .587l3.668 7.431L23.4 9.75l-5.7 5.56L18.8 23 12 19.77 5.2 23l1.1-7.69L.6 9.75l7.732-1.732L12 .587z" />
+                                      </svg>
+                                    ))}
+                                  </div>
+                                  <span className="text-[9px] sm:text-xs text-[#210C00]/60">
+                                    {(currentBook?.book?.totalRatings || 0).toLocaleString()} ratings
+                                  </span>
+                                </div>
+
+                                <p className="text-[10px] sm:text-sm text-[#210C00]/70 mb-2 sm:mb-3">
+                                  {currentBook?.book?.pageCount || '?'} pages
+                                  {publishYear ? ` • first pub ${publishYear}` : ''}
+                                </p>
+
+                                <p className="text-[10px] sm:text-sm text-[#210C00]/80 leading-relaxed line-clamp-2 sm:line-clamp-3 mb-3 sm:mb-4">
+                                  {currentBook?.book?.description?.substring(0, 200) || 'Add a book to your reading list to see details here.'}
+                                </p>
+
+                                <button
+                                  onClick={() => router.push(`/view-detail?id=${currentBook?.book?._id || ''}`)}
+                                  className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#60351B] text-white text-xs sm:text-sm font-medium hover:bg-[#4A2518] transition-colors w-full sm:w-auto"
+                                >
+                                  View Detail
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                          
-                          {/* Genre Tags */}
-                          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-[#210C00]/10">
-                            <span className="w-5 h-5 rounded-full bg-[#210C00]/10 flex items-center justify-center">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                                <path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14l-8-4-8 4z" stroke="#210C00" strokeWidth="2" />
-                              </svg>
-                            </span>
-                            {(currentBook?.book?.genres || []).slice(0, 4).map((genre: string, idx: number) => (
-                              <span key={idx} className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-[#210C00]/20 text-[9px] sm:text-xs text-[#210C00]/80">
-                                {genre}
+
+                            {/* Genre Tags */}
+                            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-[#210C00]/10">
+                              <span className="w-5 h-5 rounded-full bg-[#210C00]/10 flex items-center justify-center">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                  <path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14l-8-4-8 4z" stroke="#210C00" strokeWidth="2" />
+                                </svg>
                               </span>
-                            ))}
-                            <span className="text-[10px] sm:text-xs text-orange-600 cursor-pointer hover:underline">more tags</span>
-                          </div>
-                          
-                          {/* Reader Friends Section - hidden on mobile for space */}
-                          <div className="hidden sm:block mt-4 pt-4 border-t border-[#210C00]/10">
-                            <h4 className="text-sm sm:text-base font-medium text-[#210C00] mb-3">Reader Friends</h4>
-                            <p className="text-xs text-[#210C00]/50 italic">No reading activity from friends yet.</p>
-                          </div>
-                        </>
-                      )}
+                              {(currentBook?.book?.genres || []).slice(0, 4).map((genre: string, idx: number) => (
+                                <span key={idx} className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-[#210C00]/20 text-[9px] sm:text-xs text-[#210C00]/80">
+                                  {genre}
+                                </span>
+                              ))}
+                              <span className="text-[10px] sm:text-xs text-orange-600 cursor-pointer hover:underline">more tags</span>
+                            </div>
+
+                            {/* Reader Friends Section - hidden on mobile for space */}
+                            <div className="hidden sm:block mt-4 pt-4 border-t border-[#210C00]/10">
+                              <h4 className="text-sm sm:text-base font-medium text-[#210C00] mb-3">Reader Friends</h4>
+                              <p className="text-xs text-[#210C00]/50 italic">No reading activity from friends yet.</p>
+                            </div>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               </div>
             </section>
 
@@ -1187,10 +1196,10 @@ export default function DashboardPage(): JSX.Element {
                       {finishedBooks === 0
                         ? 'Start reading to track progress!'
                         : finishedBooks >= readingGoal
-                        ? '🎉 Goal complete!'
-                        : finishedBooks / readingGoal >= 0.5
-                        ? "You're on track!"
-                        : 'Keep reading — you can do it!'}
+                          ? '🎉 Goal complete!'
+                          : finishedBooks / readingGoal >= 0.5
+                            ? "You're on track!"
+                            : 'Keep reading — you can do it!'}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                       <button
@@ -1233,77 +1242,77 @@ export default function DashboardPage(): JSX.Element {
 
             {/* Best Choice Poll Section – only shown when there are popular books with ratings */}
             {pollBars.length > 0 && (
-            <section className="ml-0 sm:ml-4 lg:ml-12 px-3 sm:px-4 lg:px-8 pl-4 sm:pl-6 lg:pl-12 py-4 sm:py-6 lg:py-8">
-              <div className="max-w-[1368px] mx-auto sm:-ml-6 lg:-ml-10">
-                <div className="flex flex-col lg:flex-row overflow-hidden rounded-lg">
-                  {/* Left - Book Covers */}
-                  <div className="bg-[#60351B]/10 p-4 sm:p-6 lg:p-10 w-full lg:w-1/2">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-medium text-[#210C00] mb-4 sm:mb-6">
-                      {activePoll?.title || content.sections.bestChoice.title}
-                    </h2>
-                    <div className="flex gap-2 sm:gap-4 md:gap-8 lg:gap-[60px] justify-center mb-4 sm:mb-6 overflow-x-auto pb-2">
-                      {pollBars.map((b: any, idx: number) => {
-                        const isVoted = activePoll?.userVotedBook === b.bookId;
-                        return (
-                          <div key={idx} className="flex flex-col items-center gap-2">
-                            <div className={`w-20 sm:w-24 md:w-[135px] aspect-[135/197] rounded-l-md rounded-r-sm overflow-hidden shadow-lg ring-2 transition-all ${isVoted ? 'ring-amber-400 scale-105' : 'ring-transparent'}`}>
-                              {b.cover ? (
-                                <img src={b.cover} alt={b.title} className="w-full h-full object-cover" />
-                              ) : (
-                                <div className="w-full h-full bg-[#60351B]/20 flex items-center justify-center">
-                                  <svg className="w-8 h-8 text-[#60351B]/40" viewBox="0 0 24 24" fill="currentColor"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14l-8-4-8 4z" /></svg>
-                                </div>
-                              )}
+              <section className="ml-0 sm:ml-4 lg:ml-12 px-3 sm:px-4 lg:px-8 pl-4 sm:pl-6 lg:pl-12 py-4 sm:py-6 lg:py-8">
+                <div className="max-w-[1368px] mx-auto sm:-ml-6 lg:-ml-10">
+                  <div className="flex flex-col lg:flex-row overflow-hidden rounded-lg">
+                    {/* Left - Book Covers */}
+                    <div className="bg-[#60351B]/10 p-4 sm:p-6 lg:p-10 w-full lg:w-1/2">
+                      <h2 className="text-lg sm:text-xl md:text-2xl font-medium text-[#210C00] mb-4 sm:mb-6">
+                        {activePoll?.title || content.sections.bestChoice.title}
+                      </h2>
+                      <div className="flex gap-2 sm:gap-4 md:gap-8 lg:gap-[60px] justify-center mb-4 sm:mb-6 overflow-x-auto pb-2">
+                        {pollBars.map((b: any, idx: number) => {
+                          const isVoted = activePoll?.userVotedBook === b.bookId;
+                          return (
+                            <div key={idx} className="flex pb-4 flex-col  items-center gap-2">
+                              <div className={`w-20  sm:w-24 md:w-[135px] shadow-[-10px_10px_20px_#000000] aspect-[135/197] rounded-l-md rounded-r-sm overflow-hidden  ring-2 transition-all ${isVoted ? 'ring-amber-400 scale-105' : 'ring-transparent'}`}>
+                                {b.cover ? (
+                                  <img src={b.cover} alt={b.title} className="w-full h-full  object-cover" />
+                                ) : (
+                                  <div className="w-full h-full bg-[#60351B]/20 flex items-center justify-center">
+                                    <svg className="w-8 h-8 text-[#60351B]/40" viewBox="0 0 24 24" fill="currentColor"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14l-8-4-8 4z" /></svg>
+                                  </div>
+                                )}
+                              </div>
                             </div>
+                          );
+                        })}
+                      </div>
+                      <div className="flex gap-2 sm:gap-4 md:gap-8 lg:gap-[60px] justify-center text-center overflow-x-auto pb-2">
+                        {pollBars.map((b: any, idx: number) => (
+                          <div key={idx} className="w-20 sm:w-24 md:w-[135px]">
+                            <p className="text-xs sm:text-sm font-medium text-black truncate">{b.title}</p>
+                            <p className="text-[10px] sm:text-xs text-orange-600 truncate">{b.author}</p>
                           </div>
-                        );
-                      })}
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex gap-2 sm:gap-4 md:gap-8 lg:gap-[60px] justify-center text-center overflow-x-auto pb-2">
-                      {pollBars.map((b: any, idx: number) => (
-                        <div key={idx} className="w-20 sm:w-24 md:w-[135px]">
-                          <p className="text-xs sm:text-sm font-medium text-black truncate">{b.title}</p>
-                          <p className="text-[10px] sm:text-xs text-orange-600 truncate">{b.author}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* Right - Poll */}
-                  <div className="bg-[#60351B] p-4 sm:p-6 lg:p-10 w-full lg:w-1/2">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Which is the best?</h3>
-                      <span className="px-3 sm:px-4 py-0.5 sm:py-1 rounded-full bg-white/20 text-white text-[10px] sm:text-xs font-medium">
-                        {activePoll?.year ? `Poll ${activePoll.year}` : content.sections.bestChoice.pollLabel}
-                      </span>
-                    </div>
-                    <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-                      {pollBars.map((b: any) => {
-                        const isVoted = activePoll?.userVotedBook === b.bookId;
-                        return (
-                          <PollBar
-                            key={b.rank}
-                            rank={b.rank}
-                            option={b.title}
-                            votes={b.votes}
-                            percentage={b.percentage}
-                            isVoted={isVoted}
-                            isVoting={votingBookId === b.bookId}
-                            onClick={!isVoted ? () => handleVote(b.bookId) : undefined}
-                          />
-                        );
-                      })}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] sm:text-xs text-white/80 italic">{totalPollVotes.toLocaleString()} votes</span>
-                      <Link href="/search-book" className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F2F0E4] text-[#210C00] font-bold text-xs sm:text-sm shadow-lg">
-                        Show more
-                      </Link>
+                    {/* Right - Poll */}
+                    <div className="bg-[#60351B] p-4 sm:p-6 lg:p-10 w-full lg:w-1/2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Which is the best?</h3>
+                        <span className="px-3 sm:px-4 py-0.5 sm:py-1 rounded-full bg-white/20 text-white text-[10px] sm:text-xs font-medium">
+                          {activePoll?.year ? `Poll ${activePoll.year}` : content.sections.bestChoice.pollLabel}
+                        </span>
+                      </div>
+                      <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                        {pollBars.map((b: any) => {
+                          const isVoted = activePoll?.userVotedBook === b.bookId;
+                          return (
+                            <PollBar
+                              key={b.rank}
+                              rank={b.rank}
+                              option={b.title}
+                              votes={b.votes}
+                              percentage={b.percentage}
+                              isVoted={isVoted}
+                              isVoting={votingBookId === b.bookId}
+                              onClick={!isVoted ? () => handleVote(b.bookId) : undefined}
+                            />
+                          );
+                        })}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] sm:text-xs text-white/80 italic">{totalPollVotes.toLocaleString()} votes</span>
+                        <Link href="/search-book" className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F2F0E4] text-[#210C00] font-bold text-xs sm:text-sm shadow-lg">
+                          Show more
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
             )}
 
             {/* Newsletter Section */}
@@ -1323,7 +1332,7 @@ export default function DashboardPage(): JSX.Element {
                       <input
                         type="email"
                         placeholder={content.sections.newsletter.placeholder}
-                        className="flex-1 w-full lg:w-[265px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-[#210C00] bg-transparent text-white placeholder:text-white/50 text-xs sm:text-sm"
+                        className="flex-1 lg:w-[265px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-[#210C00] bg-transparent text-white placeholder:text-white/50 text-xs sm:text-sm"
                       />
                       <button className="w-full sm:w-auto px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#60351B] text-white font-medium text-xs sm:text-sm shadow-lg border-b-[3px] border-[#210C00]">
                         {content.sections.newsletter.buttonText}

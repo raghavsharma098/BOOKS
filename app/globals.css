@@ -256,7 +256,7 @@ body {
   top: 0;
   bottom: 0;
   width: 18%;
-  background: linear-gradient(to right, rgba(242, 240, 228, 1) 0%, rgba(242, 240, 228, 0.8) 55%, transparent 100%);
+  background: linear-gradient(to right, rgba(98, 47, 0, 0.362) 0%, rgba(242, 240, 228, 0.8) 55%, transparent 100%);
   pointer-events: none;
   z-index: 10;
 }

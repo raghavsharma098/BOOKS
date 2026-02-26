@@ -81,47 +81,69 @@ export default function FeaturesSection(): JSX.Element {
           </p>
         </div>
 
-        {/* Features Grid - Responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-          {features.map((feature) => (
-            <div
-              key={feature.id}
-              className="relative rounded-xl md:rounded-2xl overflow-hidden p-5 md:p-6 lg:p-8 min-h-[200px] md:min-h-[240px] lg:min-h-[280px] group hover:shadow-lg transition-shadow duration-300"
-              style={{ backgroundColor: feature.color }}
-            >
-              {/* Content */}
-              <div className="relative z-10 flex flex-col justify-between h-full">
-                <div>
-                  <h3
-                    className="text-lg md:text-xl lg:text-2xl font-semibold leading-tight mb-2 md:mb-3"
-                    style={{
-                      color: feature.dark ? 'rgba(33,12,0,1)' : 'rgba(255,255,255,1)',
-                    }}
-                  >
-                    {feature.title}
-                  </h3>
-                  <p
-                    className="text-xs sm:text-sm md:text-base leading-relaxed"
-                    style={{
-                      color: feature.dark ? 'rgba(33,12,0,0.7)' : 'rgba(255,255,255,0.9)',
-                    }}
-                  >
-                    {feature.description}
-                  </p>
-                </div>
+        {/* Features Grid - Custom Layout */}
+        <div 
+          className="gap-4 md:gap-6 lg:gap-8"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateRows: 'repeat(2, 1fr)',
+            minHeight: '300px'
+          }}
+        >
+          {features.map((feature, index) => {
+            const gridAreas = [
+              '1 / 1 / 2 / 2', // div1
+              '1 / 2 / 2 / 3', // div2
+              '2 / 1 / 3 / 3', // div3
+              '1 / 3 / 3 / 4', // div4
+              '1 / 4 / 2 / 5', // div5
+              '2 / 4 / 3 / 5', // div6
+            ];
+            
+            return (
+              <div
+                key={feature.id}
+                className="relative rounded-xl md:rounded-2xl overflow-hidden p-5 md:p-6 lg:p-8 group hover:shadow-lg transition-shadow duration-300"
+                style={{ 
+                  backgroundColor: feature.color,
+                  gridArea: gridAreas[index]
+                }}
+              >
+                {/* Content */}
+                <div className="relative z-10 flex flex-col justify-between h-full">
+                  <div>
+                    <h3
+                      className="text-lg md:text-xl lg:text-2xl font-semibold leading-tight mb-2 md:mb-3"
+                      style={{
+                        color: feature.dark ? 'rgba(33,12,0,1)' : 'rgba(255,255,255,1)',
+                      }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <p
+                      className="text-xs sm:text-sm md:text-base leading-relaxed"
+                      style={{
+                        color: feature.dark ? 'rgba(33,12,0,0.7)' : 'rgba(255,255,255,0.9)',
+                      }}
+                    >
+                      {feature.description}
+                    </p>
+                  </div>
 
-                {/* Image */}
-                <div className="mt-4 md:mt-6 relative h-24 md:h-32 -mr-5 md:-mr-6 -mb-5 md:-mb-8">
-                  <Image
-                    src={feature.image}
-                    alt={feature.title}
-                    fill
-                    className="object-contain object-bottom-right"
-                  />
+                  {/* Image */}
+                  <div className="mt-4 md:mt-6 relative h-24 md:h-32 -mr-5 md:-mr-6 -mb-5 md:-mb-8">
+                    <Image
+                      src={feature.image}
+                      alt={feature.title}
+                      fill
+                      className="object-contain object-bottom-right"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

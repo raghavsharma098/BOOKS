@@ -26,7 +26,7 @@ export default function WhyChooseSection(): JSX.Element {
       
       <div className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="mx-auto relative flex flex-col items-center justify-center text-center max-w-[951px] px-2 sm:px-6 lg:px-0 py-6">
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#210C00]">Why choose us?</h3>
+          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#210C00]">Why you have to choose us?</h3>
           <p className="text-sm sm:text-base md:text-lg leading-[150%] tracking-[-0.3px] max-w-2xl mx-auto mt-3 text-[rgba(33,12,0,0.6)] text-center" style={{ fontFamily: "'SF Pro', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial", fontWeight: 274, fontStyle: 'normal', lineHeight: '150%', fontVariantNumeric: 'slashed-zero' }}>We don’t just show scores — we help you understand what truly fits you, through thoughtful reviews and real experiences.</p>
         </div>
 

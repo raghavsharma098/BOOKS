@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import booksImg from './images/book.png';
+import gradientBg from '../../images/background/gradient.png';
 import FeaturesSection from './FeaturesSection';
 import EllipseShadow from '../components/EllipseShadow';
 
@@ -12,6 +13,17 @@ export default function Hero() {
     <>
       {/* Hero Section */}
       <section className="relative w-full overflow-hidden pt-8 md:pt-12 lg:pt-16 px-4 sm:px-6 lg:px-8">
+        {/* Background Gradient Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={gradientBg}
+            alt="Background Gradient"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        
         {/* Left Side Shadow Overlay */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#210C00]/8 via-transparent to-transparent pointer-events-none z-10"></div>
         
@@ -79,9 +91,8 @@ export default function Hero() {
       </section>
 
       {/* Animated Scrolling Quote Banner - Full Bleed */}
-      <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] py-5 md:py-6 bg-white/40 backdrop-blur-sm overflow-hidden border-t border-b border-[#210C00]">
+      <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] py-5 md:py-6 border-b-orange-800/40 bg-gradient-to-r from-yellow-800/40 via-[#d4cfc4] to-yellow-800/40 backdrop-blur-sm overflow-hidden border-t border-b border-[#210C00]">
             <div className="marquee-container relative">
-              <div className="marquee-blur-left"></div>
               <div className="marquee-content">
                 {[...Array(2)].map((_, index) => (
                   <div key={index} className={`marquee-item text-center text-sm sm:text-base md:text-lg lg:text-xl text-[#210C00] font-light ${index === 1 ? 'hidden sm:block' : ''}`} style={{ fontFamily: '"SF Pro Text", "SF Pro Display", system-ui, sans-serif' }}>
@@ -96,7 +107,6 @@ export default function Hero() {
                   </div>
                 ))}
               </div>
-              <div className="marquee-blur-right"></div>
             </div>
           </div>
 
